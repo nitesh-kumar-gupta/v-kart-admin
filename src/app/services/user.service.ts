@@ -10,7 +10,6 @@ export class UserService extends BaseService {
     super();
   }
   login(credentials: Object) {
-    console.log('credentials: ', credentials);
     const url = `${this.apiUrl}/user/signin`;
     return this.httpClient.post(url, credentials, this.postOptions()).pipe(map(this.extractData), catchError(this.handleError));
   }

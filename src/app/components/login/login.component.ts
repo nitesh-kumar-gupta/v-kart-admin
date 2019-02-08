@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { Error } from 'src/app/interfaces/error';
 
 @Component({
   selector: 'app-login',
@@ -7,20 +9,25 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private userService: UserService) { }
-
+  loginForm: FormGroup;
+  error: Error;
+  constructor(private userService: UserService, private formBuilder: FormBuilder) {
+  }
   ngOnInit() {
+    this.initLoginForm();
+  }
+  initLoginForm() {
+    this.loginForm = new FormGroup({
+      username: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required)
+    });
   }
   login() {
-    const credentials = {
-      username: '1234',
-      password: '1234'
-    };
-    this.userService.login(credentials).subscribe((success) => {
+    this.userService.login(this.loginForm.value).subscribe((success) => {
       console.log('loginSuccess: ', success);
     }, (error) => {
-      console.error('loginError: ', error);
+      this.error = error.error;
+      console.error('loginError: ', this.error);
     });
   }
 }
