@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Fahkwang:400,500');
-
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 body {
     background: var(--color-background);
 }
@@ -21,7 +21,10 @@ a:focus {
 .error {
     color: rgb(248, 10, 10) !important;
     font-size: 0.8em;
+    text-align: left !important;
 }
 .success {
     color: rgb(83, 245, 8) !important;
+    font-size: 0.8em;
+    text-align: left;
 }

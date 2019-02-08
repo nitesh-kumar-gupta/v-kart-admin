@@ -42,6 +42,7 @@ export class BaseService extends CookieService {
     return httpResponse['data'] || {};
   }
   protected handleError(httpErrorResponse: HttpErrorResponse) {
+    console.log('error handler : ', httpErrorResponse['error']);
     return throwError(httpErrorResponse['error'] || {});
   }
 }

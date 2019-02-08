@@ -13,4 +13,8 @@ export class UserService extends BaseService {
     const url = `${this.apiUrl}/user/signin`;
     return this.httpClient.post(url, credentials, this.postOptions()).pipe(map(this.extractData), catchError(this.handleError));
   }
+  resetPassword(email: Object) {
+    const url = `${this.apiUrl}/user/password/reset`;
+    return this.httpClient.post(url, email, this.postOptions()).pipe(map(this.extractData), catchError(this.handleError));
+  }
 }

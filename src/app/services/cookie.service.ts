@@ -8,7 +8,7 @@ export class CookieService {
   constructor() {
   }
   writeCookie(name: String, value: String, days: any = 1) {
-    if (name && value) {
+    if (name) {
       value = this.encrypt(value);
       const expDate = new Date();
       expDate.setTime(expDate.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -19,7 +19,7 @@ export class CookieService {
   }
   readCookie(name: String) {
     const cookie = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-    return cookie ? this.decrypt(cookie.pop()) : '';
+    return cookie ? this.decrypt(cookie.pop()) : null;
   }
   eraseCookie(name: string) {
     this.writeCookie(name, '', -1);

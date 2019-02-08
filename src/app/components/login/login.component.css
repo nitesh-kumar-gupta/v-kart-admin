@@ -156,9 +156,7 @@ body {
 .v-kart .text-foot {
 	text-align: center;
 	padding: 10px;
-	font-weight: 700;
-	margin-top: 20px;
-	color: var(--color-semidark);
+	margin-top: 10px;
 }
 
 .v-kart .v-kart-footer {
