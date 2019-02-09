@@ -1,27 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { CookieService } from 'src/app/services/cookie.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./../../../assets/css/sb-admin-2.min.css', './dashboard.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
 
   constructor(
-    private title: Title,
-    private cookieService: CookieService,
-    private router: Router) {
+    private title: Title) {
     title.setTitle('v-kart Dashboard');
   }
 
   ngOnInit() {
-  }
-
-  logout() {
-    this.cookieService.eraseCookie('token');
-    this.router.navigateByUrl('/');
   }
 }
