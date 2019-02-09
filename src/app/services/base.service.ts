@@ -3,7 +3,6 @@ import { HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/ht
 import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CookieService } from './cookie.service';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -42,7 +41,6 @@ export class BaseService extends CookieService {
     return httpResponse['data'] || {};
   }
   protected handleError(httpErrorResponse: HttpErrorResponse) {
-    console.log('error handler : ', httpErrorResponse['error']);
-    return throwError(httpErrorResponse['error'] || {});
+    return throwError(httpErrorResponse['error'].error || {});
   }
 }

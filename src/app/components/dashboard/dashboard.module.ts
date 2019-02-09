@@ -6,6 +6,7 @@ import { TopnavComponent } from './topnav/topnav.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     SidenavComponent,
     TopnavComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    UsersComponent
   ],
   imports: [
     CommonModule,
