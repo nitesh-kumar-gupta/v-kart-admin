@@ -18,15 +18,15 @@
       <span>Users</span></a>
   </li>
   <hr class="sidebar-divider my-0">
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="javascript:void(0)" data-toggle="collapse" data-target="#product" aria-expanded="true" aria-controls="collapseTwo">
+  <li class="nav-item" routerLinkActive="active">
+    <a class="nav-link collapsed" href="javascript:void(0)" data-toggle="collapse" data-target="#product" aria-expanded="true" aria-controls="product">
       <i class="fas fa-align-left"></i>
       <span>Product</span>
     </a>
     <div id="product" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">\
-        <a class="collapse-item" href="javascript:void(0)">Categories</a>
-        <a class="collapse-item" href="javascript:void(0)">Items</a>
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" [routerLink]="['products/categories']">Categories</a>
+        <a class="collapse-item" [routerLink]="['products/items']">Items</a>
       </div>
     </div>
   </li>
