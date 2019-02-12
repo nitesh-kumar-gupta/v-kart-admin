@@ -88,29 +88,15 @@ a:focus {
 	opacity: .9;
 }
 
-.dashboardcode-bsmultiselect ul li.badge {
-  background: #44a0b3 !important;
-  padding-left: 5px !important;
-  margin-right: 5px;
+.multiselect-native-select .btn-group {
+	width: 100% !important;
 }
 
-.dashboardcode-bsmultiselect ul li span {
-  color: #ffffff;
-}
-
-.dashboardcode-bsmultiselect ul li button.close {
-  margin-left: 5px;
-}
-
-.dashboardcode-bsmultiselect ul {
+.multiselect-native-select .btn-group button.multiselect {
   background-color: rgba(68, 160, 179, .06);
 	color: rgba(68, 160, 179, .5);
   border: none !important;
   border-radius: 0px !important;
 	padding: 15px 20px;
-}
-
-.dashboardcode-bsmultiselect ul.dropdown-menu {
-  border-color: #44a0b3 !important;
-  background: #FFFFFF;
+	width: 100% !important;
 }

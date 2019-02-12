@@ -33,11 +33,13 @@ export class LoginComponent implements OnInit {
     });
   }
   login() {
-    this.userService.login(this.loginForm.value).subscribe((success) => {
-      this.cookieService.writeCookie('token', success.token, 2);
-      this.router.navigateByUrl('/dashboard');
-    }, (error) => {
-      this.error = error;
-    });
+    if (this.loginForm.valid) {
+      this.userService.login(this.loginForm.value).subscribe((success) => {
+        this.cookieService.writeCookie('token', success.token, 2);
+        this.router.navigateByUrl('/dashboard');
+      }, (error) => {
+        this.error = error;
+      });
+    }
   }
 }
