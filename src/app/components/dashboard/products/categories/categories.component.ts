@@ -6,6 +6,7 @@ import { ScriptService } from 'src/app/services/script.service';
 import { StyleService } from 'src/app/services/style.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/interfaces/category';
+import { ToastService } from 'src/app/services/toast.service';
 declare const jQuery: any;
 @Component({
   selector: 'app-categories',
@@ -21,7 +22,8 @@ export class CategoriesComponent implements OnInit {
     private title: Title,
     private scriptService: ScriptService,
     private styleService: StyleService,
-    private categoryService: CategoryService) {
+    private categoryService: CategoryService,
+    private toastService: ToastService) {
     this.title.setTitle('v-kart Categories');
     this.selParCategories = [];
     this.categroy = [];
@@ -73,8 +75,9 @@ export class CategoriesComponent implements OnInit {
         this.retrieveCategory();
         this.initCategoryForm();
         jQuery('#categoryModal').modal('hide');
+        this.toastService.toastInfo(`${success.name} added in category lists.`, 3);
       }, (error) => {
-        console.error('saveCategory error: ', error);
+        this.toastService.toastError(error.err_message, 3);
       });
     }
   }

@@ -100,3 +100,8 @@ a:focus {
 	padding: 15px 20px;
 	width: 100% !important;
 }
+.toast-container .toast {
+	box-shadow: 0 0 12px #000000;
+	opacity: 1 !important;
+	cursor: pointer;
+}
