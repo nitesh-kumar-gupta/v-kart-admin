@@ -19,13 +19,22 @@
                 <th>Delete</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td><a href="javascript:void(0)"><i class="fas fa-edit"></i></a></td>
-                <td><a href="javascript:void(0)"><i class="fas fa-trash"></i></a></td>
+            <tbody *ngIf="categroy.length">
+              <tr *ngFor="let c of categroy">
+                <td>{{c.name}}</td>
+                <td>{{c.description}}</td>
+                <td>
+                  <ng-container *ngIf="c.parent_product_catagory.length">
+                    <span *ngFor="let p of c.parent_product_catagory">
+                      {{p.name}}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="!c.parent_product_catagory.length">
+                    None
+                  </ng-container>
+                </td>
+                <td><a href="javascript:void(0)" (click)="editCategory(c._id)"><i class="fas fa-edit"></i></a></td>
+                <td><a href="javascript:void(0)"  (click)="deleteCategory(c._id)"><i class="fas fa-trash"></i></a></td>
               </tr>
             </tbody>
           </table>
@@ -60,12 +69,9 @@
           <div class="v-kart-group">
             <label>parent category</label>
             <select class="v-kart-input" multiple="multiple" name="parent_product_catagory" id="parent_product_catagory" formControlName="parent_product_catagory">
-              <option value="cheese">Cheese</option>
-              <option value="tomatoes">Tomatoes</option>
-              <option value="mozarella">Mozzarella</option>
-              <option value="mushrooms">Mushrooms</option>
-              <option value="pepperoni">Pepperoni</option>
-              <option value="onions">Onions</option>
+              <ng-container *ngIf="categroy.length">
+                <option *ngFor="let c of categroy" [value]="c._id">{{c.name}}</option>
+              </ng-container>
             </select>
           </div>
         </div>
