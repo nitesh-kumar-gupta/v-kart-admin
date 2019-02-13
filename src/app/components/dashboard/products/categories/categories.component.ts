@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Error } from 'src/app/interfaces/error';
 import { Title } from '@angular/platform-browser';
@@ -13,11 +13,12 @@ declare const jQuery: any;
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.css']
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
   categoryForm: FormGroup;
   categroy: Category[];
   selParCategories: String[];
   error: Error;
+  subscribes: any[];
   constructor(
     private title: Title,
     private scriptService: ScriptService,
@@ -27,10 +28,16 @@ export class CategoriesComponent implements OnInit {
     this.title.setTitle('v-kart Categories');
     this.selParCategories = [];
     this.categroy = [];
+    this.subscribes = [];
   }
   ngOnInit() {
     this.initCategoryForm();
     this.retrieveCategory();
+  }
+  ngOnDestroy() {
+    this.subscribes.forEach((subscribe) => {
+      subscribe.unsubscribe();
+    });
   }
   initializeBootstrapSelect() {
     const self = this;
@@ -51,13 +58,13 @@ export class CategoriesComponent implements OnInit {
     }).catch((err) => { console.error('js not loaded......', err); });
   }
   retrieveCategory(id = 'all') {
-    this.categoryService.retrieveCategory(id).subscribe((success) => {
+    this.subscribes.push(this.categoryService.retrieveCategory(id).subscribe((success) => {
       this.categoryService.setCategory(success);
       this.categroy = success;
       this.initializeBootstrapSelect();
     }, (error) => {
       console.error('getCategory error: ', error);
-    });
+    }));
   }
   initCategoryForm() {
     this.categoryForm = new FormGroup({
@@ -71,14 +78,14 @@ export class CategoriesComponent implements OnInit {
       this.categoryForm.patchValue({
         parent_product_catagory: this.selParCategories
       });
-      this.categoryService.addCategory(this.categoryForm.value).subscribe((success) => {
+      this.subscribes.push(this.categoryService.addCategory(this.categoryForm.value).subscribe((success) => {
         this.retrieveCategory();
         this.initCategoryForm();
         jQuery('#categoryModal').modal('hide');
         this.toastService.toastInfo(`${success.name} added in category lists.`, 3);
       }, (error) => {
         this.toastService.toastError(error.err_message, 3);
-      });
+      }));
     }
   }
   editCategory(id) {

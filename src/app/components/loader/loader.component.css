@@ -1,0 +1,78 @@
+
+
+/* LOADER */
+
+.v-kart-cube-grid {
+    width: 80px;
+    height: 80px;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+	margin:auto;
+}
+.v-kart-cube-grid .v-kart-cube {
+    width: 33%;
+    height: 33%;
+    background-color: #44a0b3;
+    float: left;
+    -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+    animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+}
+.v-kart-cube-grid .v-kart-cube1 {
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+}
+.v-kart-cube-grid .v-kart-cube2 {
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+.v-kart-cube-grid .v-kart-cube3 {
+    -webkit-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+}
+.v-kart-cube-grid .v-kart-cube4 {
+    -webkit-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+}
+.v-kart-cube-grid .v-kart-cube5 {
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+}
+.v-kart-cube-grid .v-kart-cube6 {
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+.v-kart-cube-grid .v-kart-cube7 {
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+}
+.v-kart-cube-grid .v-kart-cube8 {
+    -webkit-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+}
+.v-kart-cube-grid .v-kart-cube9 {
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+}
+@-webkit-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1); 
+    }
+}
+@keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    } 
+}
