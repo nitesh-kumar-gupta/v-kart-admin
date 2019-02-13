@@ -7,6 +7,8 @@ import { StyleService } from 'src/app/services/style.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/interfaces/category';
 import { ToastService } from 'src/app/services/toast.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 declare const jQuery: any;
 @Component({
   selector: 'app-categories',
@@ -18,7 +20,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   categroy: Category[];
   selParCategories: String[];
   error: Error;
-  subscribes: any[];
+  private ngUnsubscribe: Subject<any> = new Subject();
   constructor(
     private title: Title,
     private scriptService: ScriptService,
@@ -28,16 +30,14 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     this.title.setTitle('v-kart Categories');
     this.selParCategories = [];
     this.categroy = [];
-    this.subscribes = [];
   }
   ngOnInit() {
     this.initCategoryForm();
     this.retrieveCategory();
   }
   ngOnDestroy() {
-    this.subscribes.forEach((subscribe) => {
-      subscribe.unsubscribe();
-    });
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
   initializeBootstrapSelect() {
     const self = this;
@@ -58,13 +58,13 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     }).catch((err) => { console.error('js not loaded......', err); });
   }
   retrieveCategory(id = 'all') {
-    this.subscribes.push(this.categoryService.retrieveCategory(id).subscribe((success) => {
+    this.categoryService.retrieveCategory(id).pipe(takeUntil(this.ngUnsubscribe)).subscribe((success) => {
       this.categoryService.setCategory(success);
       this.categroy = success;
       this.initializeBootstrapSelect();
     }, (error) => {
       console.error('getCategory error: ', error);
-    }));
+    });
   }
   initCategoryForm() {
     this.categoryForm = new FormGroup({
@@ -78,14 +78,14 @@ export class CategoriesComponent implements OnInit, OnDestroy {
       this.categoryForm.patchValue({
         parent_product_catagory: this.selParCategories
       });
-      this.subscribes.push(this.categoryService.addCategory(this.categoryForm.value).subscribe((success) => {
+      this.categoryService.addCategory(this.categoryForm.value).pipe(takeUntil(this.ngUnsubscribe)).subscribe((success) => {
         this.retrieveCategory();
         this.initCategoryForm();
         jQuery('#categoryModal').modal('hide');
         this.toastService.toastInfo(`${success.name} added in category lists.`, 3);
       }, (error) => {
         this.toastService.toastError(error.err_message, 3);
-      }));
+      });
     }
   }
   editCategory(id) {

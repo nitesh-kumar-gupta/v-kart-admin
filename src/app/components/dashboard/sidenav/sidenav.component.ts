@@ -3,6 +3,8 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from './../../../interfaces/user';
 import { CookieService } from 'src/app/services/cookie.service';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SidenavComponent implements OnInit, OnDestroy {
   user: User;
-  subscribes: any[];
+  private ngUnsubscribe: Subject<any> = new Subject();
   constructor(
     private userService: UserService,
     private cookieService: CookieService,
@@ -21,12 +23,11 @@ export class SidenavComponent implements OnInit, OnDestroy {
     this.retriveUser();
   }
   ngOnDestroy() {
-    this.subscribes.forEach((subscribe) => {
-      subscribe.unsubscribe();
-    });
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
   retriveUser() {
-    this.subscribes.push(this.userService.retriveUser().subscribe((success: User) => {
+    this.userService.retriveUser().pipe(takeUntil(this.ngUnsubscribe)).subscribe((success: User) => {
       this.userService.setUser(success);
       this.user = success;
     }, (error) => {
@@ -34,7 +35,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
         this.cookieService.eraseCookie('token');
         this.router.navigateByUrl('/');
       }
-    }));
+    });
   }
 
 }

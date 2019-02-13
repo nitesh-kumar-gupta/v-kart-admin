@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { UserService } from 'src/app/services/user.service';
 import { Title } from '@angular/platform-browser';
 import { EmailValidator } from './../../validators/email.validator';
-
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-forget-password',
   templateUrl: './forget-password.component.html',
@@ -12,22 +13,20 @@ import { EmailValidator } from './../../validators/email.validator';
 export class ForgetPasswordComponent implements OnInit, OnDestroy {
   forgetForm: FormGroup;
   error: Error;
-  subscribes: any[];
+  private ngUnsubscribe: Subject<any> = new Subject();
   constructor(
     private title: Title,
     private userService: UserService,
     private formBuilder: FormBuilder
   ) {
-    this.subscribes = [];
     title.setTitle('v-kart Forget password');
   }
   ngOnInit() {
     this.initForgetForm();
   }
   ngOnDestroy() {
-    this.subscribes.forEach((subscribe) => {
-      subscribe.unsubscribe();
-    });
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
   initForgetForm() {
     this.forgetForm = new FormGroup({
@@ -37,10 +36,10 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
   resetPassword() {
     this.error = null;
     if (this.forgetForm.valid) {
-      this.subscribes.push(this.userService.resetPassword(this.forgetForm.value).subscribe((success) => {
+      this.userService.resetPassword(this.forgetForm.value).pipe(takeUntil(this.ngUnsubscribe)).subscribe((success) => {
       }, (error) => {
         this.error = error.error;
-      }));
+      });
     }
   }
 }

@@ -6,7 +6,8 @@ import { User } from 'src/app/interfaces/user';
 import { CookieService } from 'src/app/services/cookie.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,20 +17,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   error: Error;
   user: User;
-  subscribe: any;
+  private ngUnsubscribe: Subject<any> = new Subject();
   constructor(
     private title: Title,
     private userService: UserService,
     private router: Router,
     private cookieService: CookieService) {
-      this.subscribe = null;
       this.title.setTitle('v-kart Login');
   }
   ngOnInit() {
     this.initLoginForm();
   }
   ngOnDestroy() {
-    this.subscribe.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
   initLoginForm() {
     this.loginForm = new FormGroup({
@@ -39,12 +40,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   login() {
     if (this.loginForm.valid) {
-      this.subscribe = this.userService.login(this.loginForm.value).subscribe((success) => {
+      this.userService.login(this.loginForm.value).pipe(takeUntil(this.ngUnsubscribe)).subscribe((success) => {
         this.cookieService.writeCookie('token', success.token, 2);
         this.router.navigateByUrl('/dashboard');
       }, (error) => {
         this.error = error;
       });
+
     }
   }
 }
