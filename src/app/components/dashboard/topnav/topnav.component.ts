@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./topnav.component.css']
 })
 export class TopnavComponent implements OnInit {
-  protected user?: User;
+  user?: User;
   constructor(
     private userService: UserService,
     private cookieService: CookieService,

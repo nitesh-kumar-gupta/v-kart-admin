@@ -15,7 +15,7 @@ declare const jQuery: any;
 })
 export class CategoriesComponent implements OnInit {
   categoryForm: FormGroup;
-  protected categroy: Category[];
+  categroy: Category[];
   selParCategories: String[];
   error: Error;
   constructor(
