@@ -8,19 +8,20 @@
   <hr class="sidebar-divider my-0">
   <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
     <a class="nav-link" [routerLink]="['/dashboard']">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Dashboard</span></a>
+      <i class="fas fa-fw fa-tachometer-alt" aria-hidden="true"></i>
+      <span>Dashboard</span>
+    </a>
   </li>
   <hr class="sidebar-divider my-0">
   <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
     <a class="nav-link" [routerLink]="['users']">
-      <i class="fas fa-users"></i>
+      <i class="fas fa-users" aria-hidden="true"></i>
       <span>Users</span></a>
   </li>
   <hr class="sidebar-divider my-0">
   <li class="nav-item" routerLinkActive="active">
     <a class="nav-link collapsed" href="javascript:void(0)" data-toggle="collapse" data-target="#product" aria-expanded="true" aria-controls="product">
-      <i class="fas fa-align-left"></i>
+      <i class="fas fa-align-left" aria-hidden="true"></i>
       <span>Product</span>
     </a>
     <div id="product" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -29,5 +30,12 @@
         <a class="collapse-item" [routerLink]="['products/items']">Items</a>
       </div>
     </div>
+  </li>
+  <hr class="sidebar-divider my-0">
+  <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+    <a class="nav-link" [routerLink]="['image-cloud']">
+      <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+      <span>Image Cloud</span>
+    </a>
   </li>
 </ul>

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard.component';
 import { UsersComponent } from './users/users.component';
+import { ImageCloudComponent } from './image-cloud/image-cloud.component';
 const routes: Routes = [
   {
     path: '',
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'products',
         loadChildren: './products/products.module#ProductsModule'
+      },
+      {
+        path: 'image-cloud',
+        component: ImageCloudComponent
       }
     ]
   }

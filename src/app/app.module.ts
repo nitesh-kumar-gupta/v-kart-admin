@@ -9,12 +9,14 @@ import { LoginComponent } from './components/login/login.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RedirectUriComponent } from './components/redirect-uri/redirect-uri.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ForgetPasswordComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RedirectUriComponent
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,14 @@
 export interface User {
-  email: String;
-  name: String;
-  country_code: String;
-  phone: String;
-  role: String;
-  createdAt: String;
-  updatedAt: String;
+  email: string;
+  name: string;
+  country_code: string;
+  phone: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
   verification: {
-    complete: Boolean;
-    hash: String;
-    completed_at: String;
+    complete: boolean;
+    hash: string;
+    completed_at: string;
   };
 }

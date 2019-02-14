@@ -1,4 +1,4 @@
 export interface Error {
-    code: Number;
-    err_message: String;
+    code: number;
+    err_message: string;
 }

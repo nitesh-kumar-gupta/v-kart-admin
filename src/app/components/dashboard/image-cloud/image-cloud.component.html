@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let ic of imageCloud">
+    <div class="box-part text-center">
+      <img [src]="[ic.small_logo]">
+      <div class="title">
+        <h4>{{ic.displayName}}</h4>
+      </div>
+      <div class="text">
+        <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
+      </div>
+      <button class="btn btn-primary" (click)="configure(ic)">Configure</button>
+    </div>
+  </div>
+</div>
+<app-image-cloud-modal [imageCloudType] = "imageCloudType"></app-image-cloud-modal>

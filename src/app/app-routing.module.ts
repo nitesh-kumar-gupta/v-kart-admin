@@ -5,7 +5,7 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { LoginGuard } from './middlewares/login.guard';
 import { AuthGuard } from './middlewares/auth.guard';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { RedirectUriComponent } from './components/redirect-uri/redirect-uri.component';
 const routes: Routes = [
   {
     path: '',
@@ -25,6 +25,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: './components/dashboard/dashboard.module#DashboardModule',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'callback/:type',
+    component: RedirectUriComponent,
     canActivate: [AuthGuard]
   },
   {
