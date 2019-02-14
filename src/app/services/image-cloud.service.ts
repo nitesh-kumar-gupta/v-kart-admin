@@ -14,11 +14,15 @@ export class ImageCloudService extends BaseService {
     return this.httpClient.get(url, this.getOptions()).pipe(map(this.extractData), catchError(this.handleError));
   }
   authorize(data: Object, type: string) {
-    const url = `${this.apiUrl}/authorize/${type}`;
+    const url = `${this.apiUrl}/imagecloud/authorize/${type}`;
     return this.httpClient.post(url, data, this.postOptions()).pipe(map(this.extractData), catchError(this.handleError));
   }
   create(data: Object, type: string) {
-    const url = `${this.apiUrl}/create/${type}`;
+    const url = `${this.apiUrl}/imagecloud/create/${type}`;
     return this.httpClient.post(url, data, this.postOptions()).pipe(map(this.extractData), catchError(this.handleError));
+  }
+  getAllImageCloud() {
+    const url = `${this.apiUrl}/imagecloud`;
+    return this.httpClient.get(url, this.getOptions()).pipe(map(this.extractData), catchError(this.handleError));
   }
 }

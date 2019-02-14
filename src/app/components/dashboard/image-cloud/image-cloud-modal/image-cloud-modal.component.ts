@@ -9,11 +9,10 @@ declare const jQuery: any;
 })
 export class ImageCloudModalComponent implements OnInit {
   @Input() imageCloudType;
-  constructor(private imageCloudService: ImageCloudService, private cookieService: CookieService) { }
-
+  constructor(private imageCloudService: ImageCloudService,
+    private cookieService: CookieService) { }
   ngOnInit() {
   }
-
   authorize() {
     this.imageCloudService.getAuthLink(this.imageCloudType.name).subscribe((success: any) => {
         this.openOauthDialog(success);
@@ -29,16 +28,15 @@ export class ImageCloudModalComponent implements OnInit {
         jQuery('#popup-block').modal('show');
     }
     const interval = setInterval(() => {
-        const cookie = this.cookieService.readCookie('imagecloud');
-        if (cookie === 'success') {
-            if (newWindow) {
-                newWindow.close();
-            }
-            clearInterval(interval);
-        } else if (cookie === null) {
-            clearInterval(interval);
+      const cookie = this.cookieService.readCookie('imagecloud');
+      if (cookie === 'success') {
+        if (newWindow) {
+          newWindow.close();
         }
+        clearInterval(interval);
+      } else if (cookie === null) {
+        clearInterval(interval);
+      }
     }, 5000);
-}
-
+  }
 }
