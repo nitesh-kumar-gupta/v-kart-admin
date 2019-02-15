@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ImageCloudService } from 'src/app/services/image-cloud.service';
 import { CookieService } from 'src/app/services/cookie.service';
+import { ToastService } from 'src/app/services/toast.service';
 declare const jQuery: any;
 @Component({
   selector: 'app-image-cloud-modal',
@@ -9,8 +10,10 @@ declare const jQuery: any;
 })
 export class ImageCloudModalComponent implements OnInit {
   @Input() imageCloudType;
+  @Output() newSetup = new EventEmitter<string>();
   constructor(private imageCloudService: ImageCloudService,
-    private cookieService: CookieService) { }
+    private cookieService: CookieService,
+    private toastService: ToastService) { }
   ngOnInit() {
   }
   authorize() {
@@ -25,13 +28,16 @@ export class ImageCloudModalComponent implements OnInit {
     this.cookieService.writeCookie('imagecloud', 'initilized', 1);
     const newWindow = window.open(response, 'GoogleWindow', 'width=600, height=500,scrollbars=yes');
     if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-        jQuery('#popup-block').modal('show');
+        // jQuery('#popup-block').modal('show');
     }
     const interval = setInterval(() => {
       const cookie = this.cookieService.readCookie('imagecloud');
       if (cookie === 'success') {
         if (newWindow) {
           newWindow.close();
+          jQuery('#imageCloudModal').modal('hide');
+          this.newSetup.next('');
+          this.toastService.toastSuccess(`${this.imageCloudType.displayName} connected`, 2);
         }
         clearInterval(interval);
       } else if (cookie === null) {

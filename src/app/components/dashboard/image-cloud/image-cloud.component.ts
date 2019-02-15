@@ -10,22 +10,38 @@ declare const jQuery: any;
 })
 export class ImageCloudComponent implements OnInit {
   imageCloud: ImageCloud[];
-  imageCloudType: ImageCloud;
+  imageCloudType: Object;
+  configuredImageCloud: Object[];
   constructor(private imageCloudService: ImageCloudService) {
     this.imageCloud = [Imgur];
     this.imageCloudType = null;
+    this.configuredImageCloud = [];
   }
   ngOnInit() {
+    this.getAllImageCloud();
   }
   configure(ic) {
     this.imageCloudType = ic;
     jQuery('#imageCloudModal').modal('show');
   }
   getAllImageCloud() {
+    this.configuredImageCloud = [];
     this.imageCloudService.getAllImageCloud().subscribe((success) => {
-
+      success.forEach((confCloud) => {
+        this.configuredImageCloud.push(Object.assign({}, this.getCloudJson(confCloud.type), confCloud));
+      });
     }, (error) => {
       console.error('getAllImageCloud ', error);
     });
   }
+
+  getCloudJson(type) {
+    switch (type) {
+      case 'IMGUR':
+        return Imgur;
+      default:
+        return null;
+    }
+  }
+
 }

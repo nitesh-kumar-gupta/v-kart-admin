@@ -5,5 +5,4 @@ export interface ImageCloud {
     large_logo: string;
     displayName: string;
     auth_type: string;
-    isActive: boolean;
 }
